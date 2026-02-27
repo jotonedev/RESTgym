@@ -302,11 +302,13 @@ if __name__ == "__main__":
     read_config()
     print("This is the run module. It will run up to 20 repetitions of the experiment for each tool and API.")
     print(f"Time budget: {TIME_BUDGET_MINS} minutes. Minimum CPUs: {MINIMUM_CPUS}. Minimum RAM: {MINIMUM_RAM_GB} GB.")
-    try:
-        desired_runs = int(input("How many runs? [1-20]: "))
-    except:
-        print("Please specify an whole number.")
+    desired_runs = input("How many runs? [1-20]: ")
+    desired_runs = desired_runs.strip() # Remove leading/trailing whitespace
+    if not desired_runs.isdecimal():
+        print("Please specify an whole decimal number.")
         sys.exit(1)
+    desired_runs = int(desired_runs)
+    
     if desired_runs < 1 or desired_runs > 20:
         print("Please specify a number in the range 1-20.")
         sys.exit(1)
